@@ -9,7 +9,7 @@ import com.flightspring.entity.FlightStatus;
 
 import reactor.core.publisher.Flux;
 
-public interface FlightRepository extends ReactiveMongoRepository<Flight, Integer>{
+public interface FlightRepository extends ReactiveMongoRepository<Flight, String>{
 	Flux<Flight> findByFromAirportAndToAirportAndDepartureTimeBetweenAndStatus(
 			String fromAirport,
 			String toAirport,

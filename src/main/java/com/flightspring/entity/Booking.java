@@ -12,11 +12,11 @@ import lombok.Data;
 @Data
 public class Booking {
 	@Id
-	private Integer id;
+	private String id;
 	@NotNull
-	private Integer itineraryId; // flattened FK
+	private String itineraryId; // flattened FK
 	@NotNull
-	private Integer flightId; // flattened FK
+	private String flightId; // flattened FK
 	@NotNull
 	private LocalDate journeyDate;
 	@NotNull

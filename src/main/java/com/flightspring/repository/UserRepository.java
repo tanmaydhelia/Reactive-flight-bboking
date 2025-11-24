@@ -6,7 +6,7 @@ import com.flightspring.entity.User;
 
 import reactor.core.publisher.Mono;
 
-public interface UserRepository extends ReactiveMongoRepository<User, Integer>{
+public interface UserRepository extends ReactiveMongoRepository<User, String>{
 	Mono<User> findByEmail(String email);
 	
 	Mono<Boolean> existsByEmail(String email);

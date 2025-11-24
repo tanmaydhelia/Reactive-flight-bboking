@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class User {
 	@Id
-	private Integer id;
+	private String id;
 	@NotBlank
 	private String name;
 	@NotBlank

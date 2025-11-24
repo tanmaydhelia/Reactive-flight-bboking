@@ -1,0 +1,30 @@
+package com.flightspring.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.flightspring.dto.AirlineInventoryRequest;
+import com.flightspring.dto.AirlineInventoryResponse;
+import com.flightspring.service.AdminService;
+
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
+
+@RestController
+@Slf4j
+@RequestMapping("/api/flight/airline")
+public class AdminController {
+	
+	@Autowired
+	AdminService adminService;
+	
+	@PostMapping("inventory/add")
+	public Mono<AirlineInventoryResponse> addInventory(@RequestBody @Valid AirlineInventoryRequest req) {
+		log.info("POST /api/v1.0/flight/airline/inventory/add for airlineCode={} flights={}", req.getAirlineCode(), req.getFlights()!=null?req.getFlights().size():0);
+		return adminService.addInventory(req);
+	}
+}

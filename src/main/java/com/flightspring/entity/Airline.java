@@ -12,7 +12,7 @@ import lombok.Data;
 public class Airline {
 	
 	@Id
-	private Integer id;
+	private String id;
 	
 	@NotBlank
 	private String name;

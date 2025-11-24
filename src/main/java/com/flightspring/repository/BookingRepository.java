@@ -6,6 +6,6 @@ import com.flightspring.entity.Booking;
 
 import reactor.core.publisher.Flux;
 
-public interface BookingRepository extends ReactiveMongoRepository<Booking, Integer>{
-	Flux<Booking> findByItineraryId(Integer itineraryId);
+public interface BookingRepository extends ReactiveMongoRepository<Booking, String>{
+	Flux<Booking> findByItineraryId(String itineraryId);
 }

@@ -15,11 +15,11 @@ import lombok.Data;
 @Data
 public class Itinerary {
 	@Id
-	private Integer id;
+	private String id;
 	@NotBlank
 	private String pnr;
 	@NotNull
-	private Integer userId; 
+	private String userId; 
 	@NotNull
 	@PastOrPresent
 	private LocalDateTime createdTime;
