@@ -1,6 +1,5 @@
 package com.flightspring.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,11 +25,14 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @RequestMapping("/api/flight")
 public class FlightController {
-	@Autowired
-	FlightService flightService;
 	
-	@Autowired
-	BookingService bookingService;
+	private final FlightService flightService;
+	private final BookingService bookingService;
+	
+	public FlightController(FlightService flightService, BookingService bookingService) {
+        this.flightService = flightService;
+        this.bookingService = bookingService;
+    }
 	
 	@PostMapping("/search")
 	public Flux<FlightSummaryDto> searchFlights(@RequestBody @Valid FlightSearchRequest req){

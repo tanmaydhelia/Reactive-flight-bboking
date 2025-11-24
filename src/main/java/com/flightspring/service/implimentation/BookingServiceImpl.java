@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.flightspring.dto.BookingRequest;
@@ -43,21 +42,21 @@ import reactor.core.publisher.Mono;
 @Service
 @Slf4j
 public class BookingServiceImpl implements BookingService {
-	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
+    private final FlightRepository flightRepository;
+    private final ItineraryRepository itineraryRepository;
+    private final BookingRepository bookingRepository;
+    private final PassengerRepository passengerRepository;
 
-	@Autowired
-	private FlightRepository flightRepository;
-
-	@Autowired
-	private ItineraryRepository itineraryRepository;
-
-	@Autowired
-	private BookingRepository bookingRepository;
-
-	@Autowired
-	private PassengerRepository passengerRepository;
-
+    public BookingServiceImpl(UserRepository userRepository,FlightRepository flightRepository,ItineraryRepository itineraryRepository,BookingRepository bookingRepository,PassengerRepository passengerRepository) {
+        this.userRepository = userRepository;
+        this.flightRepository = flightRepository;
+        this.itineraryRepository = itineraryRepository;
+        this.bookingRepository = bookingRepository;
+        this.passengerRepository = passengerRepository;
+    }
+    
+    
 	@Override
     public Mono<ItineraryDto> bookItinerary(String outwardFlightId, BookingRequest req) {
         validateBookingReq(req);

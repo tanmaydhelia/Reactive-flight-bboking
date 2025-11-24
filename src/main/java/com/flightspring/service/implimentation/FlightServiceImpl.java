@@ -3,7 +3,6 @@ package com.flightspring.service.implimentation;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.flightspring.dto.FlightSearchRequest;
@@ -20,13 +19,14 @@ import reactor.core.publisher.Flux;
 @Slf4j
 @Service
 public class FlightServiceImpl implements FlightService{
+	 
+	private final AirlineRepository airlineRepository;
+	private final FlightRepository flightRepository;
+    public FlightServiceImpl(AirlineRepository airlineRepository, FlightRepository flightRepository) {
+        this.flightRepository = flightRepository;
+        this.airlineRepository = airlineRepository;
+    }
 
-	@Autowired
-	FlightRepository flightRepository;
-	
-	@Autowired
-	AirlineRepository airlineRepository;
-	
 	@Override
     public Flux<FlightSummaryDto> searchFlights(FlightSearchRequest req) {
         log.info("Searching flights from={} to={} date={} tripType={}", req.getFrom(), req.getTo(), req.getJourneyDate(), req.getTripType());

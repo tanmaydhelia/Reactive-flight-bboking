@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.flightspring.dto.AirlineInventoryRequest;
@@ -24,11 +23,13 @@ import reactor.core.publisher.Mono;
 @Service
 @Slf4j
 public class AdminServiceImpl implements AdminService{
-	@Autowired
-    private AirlineRepository airlineRepository;
-
-    @Autowired
-    private FlightRepository flightRepository;
+	
+    private final AirlineRepository airlineRepository;
+    private final FlightRepository flightRepository;
+    public AdminServiceImpl(AirlineRepository airlineRepository, FlightRepository flightRepository) {
+        this.flightRepository = flightRepository;
+        this.airlineRepository = airlineRepository;
+    }
 
     @Override
     public Mono<AirlineInventoryResponse> addInventory(AirlineInventoryRequest request) {
