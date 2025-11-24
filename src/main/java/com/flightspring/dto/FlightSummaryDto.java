@@ -3,14 +3,12 @@ package com.flightspring.dto;
 
 import java.time.LocalDateTime;
 
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Document
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

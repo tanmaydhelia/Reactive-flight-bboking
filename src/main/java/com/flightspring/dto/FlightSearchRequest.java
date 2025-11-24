@@ -2,7 +2,6 @@ package com.flightspring.dto;
 
 import java.time.LocalDate;
 
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.flightspring.entity.TripType;
@@ -13,7 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Document
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
