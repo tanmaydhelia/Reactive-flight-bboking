@@ -3,7 +3,7 @@ package com.flightspring.controllers;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import java.util.Collections;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
@@ -22,7 +22,7 @@ import com.flightspring.service.AdminService;
 
 import reactor.core.publisher.Mono;
 
-@WebFluxTest(AdminControllerTest.class)
+@WebFluxTest(AdminController.class)
 public class AdminControllerTest {
 	@Autowired
     WebTestClient webTestClient;
@@ -32,36 +32,40 @@ public class AdminControllerTest {
     
     @Test
     void testAddInventory() {
+    	AirlineInventoryRequest req = new AirlineInventoryRequest();
+        req.setAirlineCode("AI");
         
-        AirlineInventoryRequest req = new AirlineInventoryRequest();
-        req.setAirlineCode("IND");
-       
-        FlightInventoryItemDto item = new FlightInventoryItemDto();
-        item.setFromAirport("DEL");
-        item.setToAirport("BLR");
-       
-        req.setFlights(List.of(item)); 
+        FlightInventoryItemDto flightItem = new FlightInventoryItemDto();
+        flightItem.setFromAirport("VNS");
+        flightItem.setToAirport("BLR");
+        flightItem.setDepartureTime(LocalDateTime.now().plusDays(10)); 
+        flightItem.setArrivalTime(LocalDateTime.now().plusDays(10).plusHours(2));
+        flightItem.setPrice(5000);
+        flightItem.setTotalSeats(150);
+        
+        req.setFlights(List.of(flightItem));
 
+ 
         AirlineInventoryResponse response = new AirlineInventoryResponse();
-        response.setAirLineCode("IND");
+        response.setAirLineCode("AI");
         response.setFlightsAdded(1);
 
+       
         when(adminService.addInventory(any(AirlineInventoryRequest.class)))
             .thenReturn(Mono.just(response));
 
-    
+        
         webTestClient.post()
             .uri("/api/flight/airline/inventory/add")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(req)
             .exchange()
-            .expectStatus().isOk()
+            .expectStatus().isCreated()
             .expectBody(AirlineInventoryResponse.class)
             .value(res -> {
-                Assertions.assertEquals("IND", res.getAirLineCode());
+                Assertions.assertEquals("AI", res.getAirLineCode());
                 Assertions.assertEquals(1, res.getFlightsAdded());
             });
     }
-
 }
 

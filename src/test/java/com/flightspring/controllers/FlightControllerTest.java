@@ -31,7 +31,7 @@ import com.flightspring.service.FlightService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@WebFluxTest(FlightControllerTest.class)
+@WebFluxTest(FlightController.class)
 public class FlightControllerTest {
 	@Autowired
     private WebTestClient webTestClient;
@@ -62,7 +62,7 @@ public class FlightControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(req)
             .exchange()
-            .expectStatus().isOk()
+            .expectStatus().isCreated()
             .expectBodyList(FlightSummaryDto.class)
             .hasSize(1);
     }
@@ -95,7 +95,7 @@ public class FlightControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(req)
             .exchange()
-            .expectStatus().isOk()
+            .expectStatus().isCreated()
             .expectBody(ItineraryDto.class)
             .value(res -> Assertions.assertEquals("PNR123", res.getPnr()));
     }

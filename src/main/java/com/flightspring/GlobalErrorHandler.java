@@ -11,8 +11,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.multipart.support.AbstractMultipartHttpServletRequest;
-
 import com.flightspring.exception.CancellationNotAllowedException;
 import com.flightspring.exception.ResourceNotFoundException;
 import com.flightspring.exception.SeatNotAvailableException;
@@ -53,11 +51,5 @@ public class GlobalErrorHandler {
     @ExceptionHandler(CancellationNotAllowedException.class)
     public ResponseEntity<String> handleCancellationNotAllowed(CancellationNotAllowedException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGeneric(Exception e, AbstractMultipartHttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("An unexpected error occurred: " + e.getMessage());
     }
 }

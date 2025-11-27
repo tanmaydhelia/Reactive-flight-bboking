@@ -1,11 +1,13 @@
 package com.flightspring.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.flightspring.dto.BookingRequest;
@@ -35,12 +37,14 @@ public class FlightController {
     }
 	
 	@PostMapping("/search")
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public Flux<FlightSummaryDto> searchFlights(@RequestBody @Valid FlightSearchRequest req){
 		log.info("POST /api/v1.0/flight/search from={} to={} date={} tripType={}", req.getFrom(), req.getTo(), req.getJourneyDate(), req.getTripType());
 		return flightService.searchFlights(req);
 	}
 	
 	@PostMapping("/booking/{flightId}")
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public Mono<ItineraryDto> bookTicket(@PathVariable String flightId, @RequestBody @Valid BookingRequest req) {
 		log.info("POST /api/v1.0/flight/booking/{} for email={} tripType={}",
                 flightId, req.getEmail(), req.getTripType());
